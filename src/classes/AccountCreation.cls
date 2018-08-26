@@ -1,5 +1,6 @@
 //Added comment before commit3
 //slave2
+//for cherry pick 2
 public class AccountCreation {
     public set<string> fetchAccPhone(string s){
         list<string> p1 = new list<string>();
@@ -19,7 +20,7 @@ public class AccountCreation {
         }
         Account a = new Account();
         a.Name = acName;
-      	a.Phone = acPhone;
+        a.Phone = acPhone;
         insert a;
         return a;
     }
