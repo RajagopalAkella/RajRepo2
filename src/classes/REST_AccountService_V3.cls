@@ -2,7 +2,7 @@
 global without sharing class REST_AccountService_V3 {
 //https://www.youtube.com/watch?v=C64pLdXmEoo&list=PLk8CuVq-_KNLY-XKgEmeKQZ0RE5YbJlxh
 //This end point will give the CustomOrders for account's external Id
-//From Postman: http://akellarajgmail-developer-edition.ap1.force.com/myapi/services/apexrest/ver3?LPID=12345678901234A1
+//From Postman: http://akellarajgmail-developer-edition.ap1.force.com/myapi/services/apexrest/ExternalAccounts1?LPID=12345678901234A1
 //From Workbench: /services/apexrest/ver2?ExtId=100
     @HttpGet
     global static OrderWrapper doGet() {

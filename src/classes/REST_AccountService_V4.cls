@@ -2,13 +2,13 @@
 global without sharing class REST_AccountService_V4 {
 //https://www.youtube.com/watch?v=C64pLdXmEoo&list=PLk8CuVq-_KNLY-XKgEmeKQZ0RE5YbJlxh
 //This end point will give the CustomOrders for account's external Id
-//From Postman: http://akellarajgmail-developer-edition.ap1.force.com/myapi/services/apexrest/ver3?LPID=12345678901234A1
+//From Postman: http://akellarajgmail-developer-edition.ap1.force.com/myapi/services/apexrest/ExternalAccounts?LPID=12345678901234A1
 //From Workbench: /services/apexrest/ver2?ExtId=100
     @HttpGet
     global static OrderWrapper doGet() {
         RestRequest req = RestContext.request;
         RestResponse res = RestContext.response;
-        String ExtLPID = RestContext.request.params.get('lpid');
+        String ExtLPID = RestContext.request.params.get('LPID');
         List<CustomOrder__c> OrderList = Database.query('SELECT LPID__c, AccountGUID__c, AccountNickname__c, AccountNumber__c, AccountType__c, Container__c, FiID__c, LastUpdated__c, RunningBalance__c, YodleeMIDIdentifier__c FROM CustomOrder__c WHERE LPID__c = :ExtLPID');
         OrderWrapper OrderRecords = new OrderWrapper();
         for(CustomOrder__c mord : OrderList) {
@@ -61,8 +61,34 @@ global without sharing class REST_AccountService_V4 {
             this.ServerStatusDescription = ServerStatusDescription;
             } 
     }
-    
-//LPID__c, AccountGUID__c, AccountNumber__c, AccountType__c, Container__c, FiID__c, LastUpdated__c, RunningBalance__c, YodleeMIDIdentifier__c        
+    //SELECT LPID__c, AccountGUID__c, AccountNickname__c, AccountNumber__c, AccountType__c, Container__c, FiID__c, LastUpdated__c, RunningBalance__c, YodleeMIDIdentifier__c
+    global class MyOrder {
+        public string LPID;
+        public string AccountGUID;
+        public string AccountNickname;        
+        public string MaskedAccountNumber;
+        public string AccountHolder;
+        public string AccountType;
+        public string ContainerType;
+        public string FinancialInstitutionIdentifier;
+        public datetime LastUpdated;
+        public decimal AccountBalance;
+        public MyOrder(CustomOrder__c ord) {
+            this.LPID = ord.LPID__c;
+            this.AccountGUID = ord.LPID__c;
+            this.AccountNickname = ord.AccountNickname__c;
+            this.MaskedAccountNumber = ord.AccountNumber__c;
+            this.AccountHolder = 'John Doe';
+            this.AccountType = ord.AccountType__c;
+            this.ContainerType = ord.Container__c;
+            this.FinancialInstitutionIdentifier = ord.FiID__c;
+            this.LastUpdated = ord.LastUpdated__c;
+            this.AccountBalance = ord.RunningBalance__c;
+        }
+    }
+        
+//LPID__c, AccountGUID__c, AccountNumber__c, AccountType__c, Container__c, FiID__c, LastUpdated__c, RunningBalance__c, YodleeMIDIdentifier__c   
+/*     
     global class MyOrder {
         public string AccountGUID;
         public string AccountName;
@@ -87,6 +113,6 @@ global without sharing class REST_AccountService_V4 {
             this.AccountBalance = ord.RunningBalance__c;
         }
     }
-    
+    */
 
 }
